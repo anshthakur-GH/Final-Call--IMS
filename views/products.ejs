@@ -3,42 +3,67 @@
 <head>
     <title>Products - IMS</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/center-content.css">
+    <link rel="stylesheet" href="/css/common.css">
 </head>
 <body>
-    <div class="navbar">Products</div>
-    <div class="container">
-        <h2>Products</h2>
-        <div>
-            <form method="GET" action="/products/search" style="display:inline-block;">
-                <input type="text" name="q" placeholder="Search by name..." value="<%= q %>" />
-                <select name="cat">
-                    <option value="">All Categories</option>
-                    <% categories.forEach(c => { %>
-                        <option value="<%= c %>" <%= cat === c ? 'selected' : '' %>><%= c %></option>
+    <nav class="navbar colorful-navbar">
+        <div class="nav-logo">Inventory Management System</div>
+        <ul class="nav-links">
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/stock">Stock</a></li>
+            <li><a href="/orders">Orders</a></li>
+            
+            <li><a href="/reports">Reports</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+    <div class="container dashboard-container full-width-dash center-content">
+        <div class="center-col">
+            <div class="section-card">
+                <h2 class="section-title">Products</h2>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <form method="GET" action="/products/search" style="flex: 1; margin-right: 20px;">
+                        <div style="display: flex; gap: 10px;">
+                            <input type="text" name="q" placeholder="Search by name..." value="<%= q %>" style="flex: 2;" />
+                            <select name="cat" style="flex: 1;">
+                                <option value="">All Categories</option>
+                                <% categories.forEach(c => { %>
+                                    <option value="<%= c %>" <%= cat === c ? 'selected' : '' %>><%= c %></option>
+                                <% }) %>
+                            </select>
+                            <button type="submit" style="width: auto;">Search</button>
+                        </div>
+                    </form>
+                    <a href="/products/add" class="action-btn">+ Add Product</a>
+                </div>
+                
+                <table class="data-table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Actions</th>
+                    </tr>
+                    <% products.forEach(p => { %>
+                        <tr>
+                            <td><%= p.name %></td>
+                            <td><%= p.category %></td>
+                            <td>₹<%= p.price %></td>
+                            <td><%= p.stock %></td>
+                            <td>
+                                <a href="/products/edit/<%= p.id %>" class="action-btn">Edit</a>
+                                <form method="POST" action="/products/delete/<%= p.id %>" style="display:inline;">
+                                    <button type="submit" onclick="return confirm('Delete this product?')" style="padding: 8px 16px;">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
                     <% }) %>
-                </select>
-                <button type="submit">Search</button>
-            </form>
-            <a href="/products/add" style="float:right;">Add Product</a>
+                </table>
+            </div>
         </div>
-        <table>
-            <tr><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Actions</th></tr>
-            <% products.forEach(p => { %>
-                <tr>
-                    <td><%= p.name %></td>
-                    <td><%= p.category %></td>
-                    <td>₹<%= p.price %></td>
-                    <td><%= p.stock %></td>
-                    <td>
-                        <a href="/products/edit/<%= p.id %>">Edit</a> |
-                        <form method="POST" action="/products/delete/<%= p.id %>" style="display:inline;">
-                            <button type="submit" onclick="return confirm('Delete this product?')">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            <% }) %>
-        </table>
-        <a href="/dashboard">Back to Dashboard</a>
     </div>
 </body>
 </html>

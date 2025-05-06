@@ -1,37 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="/css/style.css">
-
     <title>Dashboard - IMS</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/center-content.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="navbar">Dashboard</div>
-    <div class="container dashboard-container">
-        <h2 class="welcome">Welcome<% if (user && user.username) { %>, <%= user.username %>!<% } %></h2>
-        <div class="dashboard-metrics">
-            <div class="card metric-card">
-                <div class="metric-title">Total Products</div>
-                <div class="metric-value"><%= total_products %></div>
+    <nav class="navbar colorful-navbar">
+        <div class="nav-logo">Inventory Management System</div>
+        <ul class="nav-links">
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/stock">Stock</a></li>
+            <li><a href="/orders">Orders</a></li>
+            
+            <li><a href="/reports">Reports</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+    <div class="container dashboard-container full-width-dash center-content">
+        <div class="dashboard-center-col">
+            <div class="metrics-section-card">
+                <div class="metrics-container">
+                    <div class="metric-item">
+                        <div class="metric-title">Total Products</div>
+                        <div class="metric-value"><%= total_products %></div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-title">Low Stock Items</div>
+                        <div class="metric-value"><%= low_stock_count %></div>
+                    </div>
+                </div>
             </div>
-            <div class="card metric-card">
-                <div class="metric-title">Low Stock Items</div>
-                <div class="metric-value"><%= low_stock_count %></div>
+            <div class="card add-product-card">
+                <div class="add-product-title">Add New Product</div>
+                <a href="/products/add" class="add-product-btn">+ Add Product</a>
             </div>
-        </div>
-        <div class="dashboard-links">
-            <a href="/products">Products</a> |
-            <a href="/stock">Stock</a> |
-            <a href="/orders">Orders</a> |
-            <a href="/sales">Sales</a> |
-            <a href="/purchases">Purchases</a> |
-            <a href="/reports">Reports</a> |
-            <a href="/logout">Logout</a>
-        </div>
-        <div class="recent-blocks">
-            <div class="card recent-card">
+            <div class="card recent-section-card">
                 <h3>Recent Sales</h3>
                 <table class="data-table">
                     <tr><th>Product</th><th>Qty</th><th>Date</th></tr>
@@ -44,37 +51,8 @@
                     <% }); %>
                 </table>
             </div>
-            <div class="card recent-card">
-                <h3>Recent Purchases</h3>
-                <table class="data-table">
-                    <tr><th>Product</th><th>Qty</th><th>Date</th></tr>
-                    <% recent_purchases.forEach(function(pur) { %>
-                        <tr>
-                            <td><%= pur.name %></td>
-                            <td><%= pur.quantity %></td>
-                            <td><%= pur.date %></td>
-                        </tr>
-                    <% }); %>
-                </table>
-            </div>
+
         </div>
-        <h3>Stock Trend</h3>
-        <canvas id="stockChart" width="400" height="150"></canvas>
-        <script>
-            const ctx = document.getElementById('stockChart').getContext('2d');
-            const stockChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: <%- JSON.stringify(stock_trend.map(item => item.name)) %>,
-                    datasets: [{
-                        label: 'Stock Level',
-                        data: <%- JSON.stringify(stock_trend.map(item => item.stock)) %>,
-                        backgroundColor: 'rgba(54, 162, 235, 0.6)'
-                    }]
-                },
-                options: { scales: { y: { beginAtZero: true } } }
-            });
-        </script>
     </div>
 </body>
 </html>

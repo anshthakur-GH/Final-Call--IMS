@@ -2,11 +2,6 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db/connection');
 
-function isAuthenticated(req, res, next) {
-    if (req.session && req.session.user) return next();
-    res.redirect('/login');
-}
-
 router.get('/', async (req, res) => {
     try {
         // Get total products

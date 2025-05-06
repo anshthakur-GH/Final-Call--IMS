@@ -1,0 +1,132 @@
+.metrics-section-card {
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    color: white;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+}
+
+.metrics-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.metric-item {
+    text-align: center;
+    padding: 10px 20px;
+}
+
+.metric-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.metric-value {
+    font-size: 42px;
+    font-weight: 700;
+    color: white;
+}
+
+.dashboard-center-col {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card {
+    width: 100%;
+    margin-bottom: 30px;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.add-product-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    color: white;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+}
+
+.add-product-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: white;
+}
+
+.add-product-btn {
+    background: white;
+    color: #2575fc;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.add-product-btn:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.recent-section-card {
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    color: white;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+}
+
+.recent-section-card h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: white;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+.data-table th, 
+.data-table td {
+    padding: 15px 25px;
+    text-align: left;
+    color: white;
+}
+
+.data-table th {
+    background: rgba(255, 255, 255, 0.1);
+    font-weight: 700;
+    border-radius: 6px;
+}
+
+.data-table td {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f7fa;
+}

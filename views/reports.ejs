@@ -3,56 +3,84 @@
 <head>
     <title>Reports - IMS</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/center-content.css">
+    <link rel="stylesheet" href="/css/common.css">
 </head>
 <body>
-    <div class="navbar">Reports</div>
-    <div class="container">
-        <h2>Reports</h2>
-        <% if (error) { %>
-            <div class="error"><%= error %></div>
-        <% } %>
-        <form method="POST" action="/reports">
-            <label>Report Type:</label>
-            <select name="type" required>
-                <option value="stock">Stock</option>
-                <option value="sales">Sales</option>
-                <option value="purchases">Purchases</option>
-            </select>
-            <label>Date Range (for sales/purchases):</label>
-            <input type="date" name="start_date" />
-            <input type="date" name="end_date" />
-            <button type="submit">Generate</button>
-        </form>
-        <% if (report) { %>
-            <h3><%= report.type.charAt(0).toUpperCase() + report.type.slice(1) %> Report</h3>
-            <form method="POST" action="/reports/export/csv" style="display:inline;">
-                <input type="hidden" name="type" value="<%= report.type %>" />
-                <input type="hidden" name="start_date" value="<%= report.start_date %>" />
-                <input type="hidden" name="end_date" value="<%= report.end_date %>" />
-                <button type="submit">Export CSV</button>
-            </form>
-            <form method="POST" action="/reports/export/pdf" style="display:inline;">
-                <input type="hidden" name="type" value="<%= report.type %>" />
-                <input type="hidden" name="start_date" value="<%= report.start_date %>" />
-                <input type="hidden" name="end_date" value="<%= report.end_date %>" />
-                <button type="submit">Export PDF</button>
-            </form>
-            <table>
-                <tr>
-                    <% if (report.rows.length > 0) { Object.keys(report.rows[0]).forEach(key => { %>
-                        <th><%= key %></th>
-                    <% }) } %>
-                </tr>
-                <% report.rows.forEach(row => { %>
+    <nav class="navbar colorful-navbar">
+        <div class="nav-logo">Inventory Management System</div>
+        <ul class="nav-links">
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/stock">Stock</a></li>
+            <li><a href="/orders">Orders</a></li>
+            
+            <li><a href="/reports">Reports</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+    <div class="container dashboard-container full-width-dash center-content">
+        <div class="center-col">
+            <div class="section-card">
+                <h2 class="section-title">Generate Report</h2>
+                <% if (error) { %>
+                    <div class="error"><%= error %></div>
+                <% } %>
+                <form method="POST" action="/reports">
+                    <label>Report Type:</label>
+                    <select name="type" required>
+                        <option value="stock">Stock</option>
+                        <option value="sales">Sales</option>
+                        <option value="purchases">Purchases</option>
+                    </select>
+                    <div style="display: flex; gap: 15px;">
+                        <div style="flex: 1;">
+                            <label>Start Date:</label>
+                            <input type="date" name="start_date" />
+                        </div>
+                        <div style="flex: 1;">
+                            <label>End Date:</label>
+                            <input type="date" name="end_date" />
+                        </div>
+                    </div>
+                    <button type="submit">Generate Report</button>
+                </form>
+            </div>
+
+            <% if (report) { %>
+            <div class="section-card">
+                <h2 class="section-title"><%= report.type.charAt(0).toUpperCase() + report.type.slice(1) %> Report</h2>
+                <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px;">
+                    <form method="POST" action="/reports/export/csv">
+                        <input type="hidden" name="type" value="<%= report.type %>" />
+                        <input type="hidden" name="start_date" value="<%= report.start_date %>" />
+                        <input type="hidden" name="end_date" value="<%= report.end_date %>" />
+                        <button type="submit">Export CSV</button>
+                    </form>
+                    <form method="POST" action="/reports/export/pdf">
+                        <input type="hidden" name="type" value="<%= report.type %>" />
+                        <input type="hidden" name="start_date" value="<%= report.start_date %>" />
+                        <input type="hidden" name="end_date" value="<%= report.end_date %>" />
+                        <button type="submit">Export PDF</button>
+                    </form>
+                </div>
+                <table class="data-table">
                     <tr>
-                        <% Object.values(row).forEach(val => { %>
-                            <td><%= val %></td>
-                        <% }) %>
+                        <% if (report.rows.length > 0) { Object.keys(report.rows[0]).forEach(key => { %>
+                            <th><%= key %></th>
+                        <% }) } %>
                     </tr>
-                <% }) %>
-            </table>
-        <% } %>
-        <a href="/dashboard">Back to Dashboard</a>
+                    <% report.rows.forEach(row => { %>
+                        <tr>
+                            <% Object.values(row).forEach(val => { %>
+                                <td><%= val %></td>
+                            <% }) %>
+                        </tr>
+                    <% }) %>
+                </table>
+            </div>
+            <% } %>
+        </div>
     </div>
 </body>
 </html>

@@ -3,38 +3,61 @@
 <head>
     <title>Stock Management - IMS</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/center-content.css">
+    <link rel="stylesheet" href="/css/common.css">
     <style>
-        .low-stock { background: #ffe5e5; }
+        .low-stock td { background: rgba(255, 99, 71, 0.3) !important; }
     </style>
 </head>
 <body>
-    <div class="navbar">Stock</div>
-    <div class="container">
-        <h2>Stock Management</h2>
-        <table>
-            <tr><th>Name</th><th>Category</th><th>Stock</th><th>Low Stock Threshold</th><th>Adjust</th><th>Set Threshold</th></tr>
-            <% products.forEach(p => { %>
-                <tr class="<%= p.stock <= p.low_stock_threshold ? 'low-stock' : '' %>">
-                    <td><%= p.name %></td>
-                    <td><%= p.category %></td>
-                    <td><%= p.stock %></td>
-                    <td><%= p.low_stock_threshold %></td>
-                    <td>
-                        <form method="POST" action="/stock/adjust/<%= p.id %>" style="display:inline;">
-                            <input type="number" name="stock" value="<%= p.stock %>" style="width:60px;" />
-                            <button type="submit">Update</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form method="POST" action="/stock/threshold/<%= p.id %>" style="display:inline;">
-                            <input type="number" name="low_stock_threshold" value="<%= p.low_stock_threshold %>" style="width:60px;" />
-                            <button type="submit">Set</button>
-                        </form>
-                    </td>
-                </tr>
-            <% }) %>
-        </table>
-        <a href="/dashboard">Back to Dashboard</a>
+    <nav class="navbar colorful-navbar">
+        <div class="nav-logo">Inventory Management System</div>
+        <ul class="nav-links">
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/stock">Stock</a></li>
+            <li><a href="/orders">Orders</a></li>
+            
+            <li><a href="/reports">Reports</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+    <div class="container dashboard-container full-width-dash center-content">
+        <div class="center-col">
+            <div class="section-card">
+                <h2 class="section-title">Stock Management</h2>
+                <table class="data-table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Stock</th>
+                        <th>Low Stock Threshold</th>
+                        <th>Adjust</th>
+                        <th>Set Threshold</th>
+                    </tr>
+                    <% products.forEach(p => { %>
+                        <tr class="<%= p.stock <= p.low_stock_threshold ? 'low-stock' : '' %>">
+                            <td><%= p.name %></td>
+                            <td><%= p.category %></td>
+                            <td><%= p.stock %></td>
+                            <td><%= p.low_stock_threshold %></td>
+                            <td>
+                                <form method="POST" action="/stock/adjust/<%= p.id %>" style="display:flex; align-items:center; gap:5px; margin:0;">
+                                    <input type="number" name="stock" value="<%= p.stock %>" style="width:60px; margin:0;" />
+                                    <button type="submit" style="margin:0; padding:8px 12px;">Update</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form method="POST" action="/stock/threshold/<%= p.id %>" style="display:flex; align-items:center; gap:5px; margin:0;">
+                                    <input type="number" name="low_stock_threshold" value="<%= p.low_stock_threshold %>" style="width:60px; margin:0;" />
+                                    <button type="submit" style="margin:0; padding:8px 12px;">Set</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </table>
+            </div>
+        </div>
     </div>
 </body>
 </html>

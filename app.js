@@ -19,14 +19,29 @@ app.use(session({
     saveUninitialized: true
 }));
 
-// Routes
-app.use('/', require('./routes/auth'));
+// Auth routes
+app.use(require('./routes/auth'));
+
+// Authentication middleware
+app.use((req, res, next) => {
+    if (
+        req.session.loggedIn ||
+        req.path === '/login' ||
+        req.path === '/logout'
+    ) {
+        return next();
+    }
+    res.redirect('/login');
+});
+
+// Redirect root to /dashboard
+app.get('/', (req, res) => {
+    res.redirect('/dashboard');
+});
 app.use('/dashboard', require('./routes/dashboard'));
 app.use('/products', require('./routes/products'));
 app.use('/stock', require('./routes/stock'));
 app.use('/orders', require('./routes/orders'));
-app.use('/sales', require('./routes/sales'));
-app.use('/purchases', require('./routes/purchases'));
 app.use('/reports', require('./routes/reports'));
 
 // 404

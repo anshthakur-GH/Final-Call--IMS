@@ -5,8 +5,20 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    <nav class="navbar colorful-navbar">
+        <div class="nav-logo">Inventory Management System</div>
+        <ul class="nav-links">
+            <li><a href="/products">Products</a></li>
+            <li><a href="/stock">Stock</a></li>
+            <li><a href="/orders">Orders</a></li>
+            <li><a href="/sales">Sales</a></li>
+            <li><a href="/purchases">Purchases</a></li>
+            <li><a href="/reports">Reports</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
     <div class="navbar">Product Form</div>
-    <div class="container">
+    <div class="container center-content">
         <h2><%= product.id ? 'Edit' : 'Add' %> Product</h2>
         <% if (typeof error !== 'undefined' && error) { %>
             <div class="error"><%= error %></div>
@@ -24,4 +36,7 @@
             <input type="number" name="low_stock_threshold" value="<%= product.low_stock_threshold || 5 %>" required />
             <button type="submit"><%= product.id ? 'Update' : 'Add' %> Product</button>
         </form>
-        <a href="/products">Back 
+        <a href="/products">Back to Products</a>
+    </div>
+</body>
+</html>
