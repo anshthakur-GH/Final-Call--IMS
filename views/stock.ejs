@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Management - IMS</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .low-stock { background: #ffe5e5; }
+    </style>
+</head>
+<body>
+    <div class="navbar">Stock</div>
+    <div class="container">
+        <h2>Stock Management</h2>
+        <table>
+            <tr><th>Name</th><th>Category</th><th>Stock</th><th>Low Stock Threshold</th><th>Adjust</th><th>Set Threshold</th></tr>
+            <% products.forEach(p => { %>
+                <tr class="<%= p.stock <= p.low_stock_threshold ? 'low-stock' : '' %>">
+                    <td><%= p.name %></td>
+                    <td><%= p.category %></td>
+                    <td><%= p.stock %></td>
+                    <td><%= p.low_stock_threshold %></td>
+                    <td>
+                        <form method="POST" action="/stock/adjust/<%= p.id %>" style="display:inline;">
+                            <input type="number" name="stock" value="<%= p.stock %>" style="width:60px;" />
+                            <button type="submit">Update</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="POST" action="/stock/threshold/<%= p.id %>" style="display:inline;">
+                            <input type="number" name="low_stock_threshold" value="<%= p.low_stock_threshold %>" style="width:60px;" />
+                            <button type="submit">Set</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </table>
+        <a href="/dashboard">Back to Dashboard</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manual Sales Entry - IMS</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="navbar">Orders</div>
+    <div class="container">
+        <h2>Manual Sales Entry</h2>
+        <% if (error) { %>
+            <div class="error"><%= error %></div>
+        <% } %>
+        <form method="POST" action="/orders">
+            <label>Product:</label>
+            <select name="product_id" required>
+                <% products.forEach(p => { %>
+                    <option value="<%= p.id %>"><%= p.name %> (Stock: <%= p.stock %>)</option>
+                <% }) %>
+            </select>
+            <label>Quantity:</label>
+            <input type="number" name="quantity" min="1" required />
+            <label>Customer (optional):</label>
+            <input type="text" name="customer" />
+            <button type="submit">Place Order</button>
+        </form>
+        <a href="/dashboard">Back to Dashboard</a>
+    </div>
+</body>
+</html>

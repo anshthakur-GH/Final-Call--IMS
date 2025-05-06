@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products - IMS</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="navbar">Products</div>
+    <div class="container">
+        <h2>Products</h2>
+        <div>
+            <form method="GET" action="/products/search" style="display:inline-block;">
+                <input type="text" name="q" placeholder="Search by name..." value="<%= q %>" />
+                <select name="cat">
+                    <option value="">All Categories</option>
+                    <% categories.forEach(c => { %>
+                        <option value="<%= c %>" <%= cat === c ? 'selected' : '' %>><%= c %></option>
+                    <% }) %>
+                </select>
+                <button type="submit">Search</button>
+            </form>
+            <a href="/products/add" style="float:right;">Add Product</a>
+        </div>
+        <table>
+            <tr><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Actions</th></tr>
+            <% products.forEach(p => { %>
+                <tr>
+                    <td><%= p.name %></td>
+                    <td><%= p.category %></td>
+                    <td>₹<%= p.price %></td>
+                    <td><%= p.stock %></td>
+                    <td>
+                        <a href="/products/edit/<%= p.id %>">Edit</a> |
+                        <form method="POST" action="/products/delete/<%= p.id %>" style="display:inline;">
+                            <button type="submit" onclick="return confirm('Delete this product?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </table>
+        <a href="/dashboard">Back to Dashboard</a>
+    </div>
+</body>
+</html>

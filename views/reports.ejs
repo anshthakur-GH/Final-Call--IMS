@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reports - IMS</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="navbar">Reports</div>
+    <div class="container">
+        <h2>Reports</h2>
+        <% if (error) { %>
+            <div class="error"><%= error %></div>
+        <% } %>
+        <form method="POST" action="/reports">
+            <label>Report Type:</label>
+            <select name="type" required>
+                <option value="stock">Stock</option>
+                <option value="sales">Sales</option>
+                <option value="purchases">Purchases</option>
+            </select>
+            <label>Date Range (for sales/purchases):</label>
+            <input type="date" name="start_date" />
+            <input type="date" name="end_date" />
+            <button type="submit">Generate</button>
+        </form>
+        <% if (report) { %>
+            <h3><%= report.type.charAt(0).toUpperCase() + report.type.slice(1) %> Report</h3>
+            <form method="POST" action="/reports/export/csv" style="display:inline;">
+                <input type="hidden" name="type" value="<%= report.type %>" />
+                <input type="hidden" name="start_date" value="<%= report.start_date %>" />
+                <input type="hidden" name="end_date" value="<%= report.end_date %>" />
+                <button type="submit">Export CSV</button>
+            </form>
+            <form method="POST" action="/reports/export/pdf" style="display:inline;">
+                <input type="hidden" name="type" value="<%= report.type %>" />
+                <input type="hidden" name="start_date" value="<%= report.start_date %>" />
+                <input type="hidden" name="end_date" value="<%= report.end_date %>" />
+                <button type="submit">Export PDF</button>
+            </form>
+            <table>
+                <tr>
+                    <% if (report.rows.length > 0) { Object.keys(report.rows[0]).forEach(key => { %>
+                        <th><%= key %></th>
+                    <% }) } %>
+                </tr>
+                <% report.rows.forEach(row => { %>
+                    <tr>
+                        <% Object.values(row).forEach(val => { %>
+                            <td><%= val %></td>
+                        <% }) %>
+                    </tr>
+                <% }) %>
+            </table>
+        <% } %>
+        <a href="/dashboard">Back to Dashboard</a>
+    </div>
+</body>
+</html>
