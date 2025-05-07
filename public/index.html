@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="text-center">Inventory Management System</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-4">
+                            <p>Welcome to the Inventory Management System</p>
+                            <a href="/.netlify/functions/api" class="btn btn-primary">Check API Status</a>
+                        </div>
+                        <div id="api-response" class="alert alert-info d-none">
+                            Loading...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const apiBtn = document.querySelector('a.btn-primary');
+            const apiResponse = document.getElementById('api-response');
+            
+            apiBtn.addEventListener('click', async function(e) {
+                e.preventDefault();
+                apiResponse.classList.remove('d-none');
+                apiResponse.textContent = 'Loading...';
+                
+                try {
+                    const response = await fetch('/.netlify/functions/api');
+                    const data = await response.json();
+                    apiResponse.textContent = 'API Response: ' + JSON.stringify(data);
+                    apiResponse.classList.add('alert-success');
+                    apiResponse.classList.remove('alert-info', 'alert-danger');
+                } catch (error) {
+                    apiResponse.textContent = 'Error: ' + error.message;
+                    apiResponse.classList.add('alert-danger');
+                    apiResponse.classList.remove('alert-info', 'alert-success');
+                }
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

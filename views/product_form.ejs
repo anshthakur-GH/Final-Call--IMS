@@ -2,7 +2,7 @@
 <html>
 <head>
     <title><%= product.id ? 'Edit' : 'Add' %> Product - IMS</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/public/css/style.css">
 </head>
 <body>
     <nav class="navbar colorful-navbar">
@@ -17,8 +17,7 @@
             <li><a href="/logout">Logout</a></li>
         </ul>
     </nav>
-    <div class="navbar">Product Form</div>
-    <div class="container center-content">
+    <div class="section-card">
         <h2><%= product.id ? 'Edit' : 'Add' %> Product</h2>
         <% if (typeof error !== 'undefined' && error) { %>
             <div class="error"><%= error %></div>

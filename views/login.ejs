@@ -2,9 +2,9 @@
 <html>
 <head>
     <title>Login - IMS</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/center-content.css">
-    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="/public/css/center-content.css">
+    <link rel="stylesheet" href="/public/css/common.css">
 </head>
 <body>
     <nav class="navbar colorful-navbar">
@@ -19,21 +19,19 @@
             <li><a href="/logout">Logout</a></li>
         </ul>
     </nav>
-    <div class="container dashboard-container full-width-dash center-content">
-        <div class="center-col">
-            <div class="section-card">
-                <h2 class="section-title">Login</h2>
-                <% if (error) { %>
-                    <div class="error"><%= error %></div>
-                <% } %>
-                <form method="POST" action="/login" autocomplete="off">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required autocomplete="off" />
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required autocomplete="off" />
-                    <button type="submit">Login</button>
-                </form>
-            </div>
+    <div class="center-col">
+        <div class="section-card">
+            <h2 class="section-title">Login</h2>
+            <% if (error) { %>
+                <div class="error"><%= error %></div>
+            <% } %>
+            <form method="POST" action="/login" autocomplete="off">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required autocomplete="off" />
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required autocomplete="off" />
+                <button type="submit">Login</button>
+            </form>
         </div>
     </div>
 </body>

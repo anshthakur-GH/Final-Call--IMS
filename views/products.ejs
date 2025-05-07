@@ -2,9 +2,9 @@
 <html>
 <head>
     <title>Products - IMS</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/center-content.css">
-    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="/public/css/center-content.css">
+    <link rel="stylesheet" href="/public/css/common.css">
 </head>
 <body>
     <nav class="navbar colorful-navbar">
@@ -19,50 +19,50 @@
             <li><a href="/logout">Logout</a></li>
         </ul>
     </nav>
-    <div class="container dashboard-container full-width-dash center-content">
-        <div class="center-col">
-            <div class="section-card">
-                <h2 class="section-title">Products</h2>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <form method="GET" action="/products/search" style="flex: 1; margin-right: 20px;">
-                        <div style="display: flex; gap: 10px;">
-                            <input type="text" name="q" placeholder="Search by name..." value="<%= q %>" style="flex: 2;" />
-                            <select name="cat" style="flex: 1;">
-                                <option value="">All Categories</option>
-                                <% categories.forEach(c => { %>
-                                    <option value="<%= c %>" <%= cat === c ? 'selected' : '' %>><%= c %></option>
-                                <% }) %>
-                            </select>
-                            <button type="submit" style="width: auto;">Search</button>
-                        </div>
-                    </form>
-                    <a href="/products/add" class="action-btn">+ Add Product</a>
-                </div>
-                
-                <table class="data-table">
+    <div class="center-col">
+        <div class="section-card">
+            <h2 class="section-title">Products</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <form method="GET" action="/products/search" style="flex: 1; margin-right: 20px;">
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input type="text" name="q" placeholder="Search by name..." value="<%= q %>" style="flex: 2; height: 44px;" />
+                        <select name="cat" style="flex: 1; height: 44px;">
+                            <option value="">All Categories</option>
+                            <% categories.forEach(c => { %>
+                                <option value="<%= c %>" <%= cat === c ? 'selected' : '' %>><%= c %></option>
+                            <% }) %>
+                        </select>
+                        <button type="submit" style="width: auto; height: 44px;">Search</button>
+                    </div>
+                </form>
+                <a href="/products/add" class="action-btn" style="height: 44px; display: flex; align-items: center; justify-content: center;">+ Add Product</a>
+            </div>
+            
+            <table class="data-table">
+                <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Actions</th>
+                </tr>
+                <% products.forEach(p => { %>
                     <tr>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Price</th>
-                        <th>Stock</th>
-                        <th>Actions</th>
-                    </tr>
-                    <% products.forEach(p => { %>
-                        <tr>
-                            <td><%= p.name %></td>
-                            <td><%= p.category %></td>
-                            <td>₹<%= p.price %></td>
-                            <td><%= p.stock %></td>
-                            <td>
+                        <td><%= p.name %></td>
+                        <td><%= p.category %></td>
+                        <td>₹<%= p.price %></td>
+                        <td><%= p.stock %></td>
+                        <td>
+                            <div style="display: flex; gap: 8px; align-items: center;">
                                 <a href="/products/edit/<%= p.id %>" class="action-btn">Edit</a>
                                 <form method="POST" action="/products/delete/<%= p.id %>" style="display:inline;">
-                                    <button type="submit" onclick="return confirm('Delete this product?')" style="padding: 8px 16px;">Delete</button>
+                                    <button type="submit" onclick="return confirm('Delete this product?')">Delete</button>
                                 </form>
-                            </td>
-                        </tr>
-                    <% }) %>
-                </table>
-            </div>
+                            </div>
+                        </td>
+                    </tr>
+                <% }) %>
+            </table>
         </div>
     </div>
 </body>

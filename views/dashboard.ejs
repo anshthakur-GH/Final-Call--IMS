@@ -2,9 +2,9 @@
 <html>
 <head>
     <title>Dashboard - IMS</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/center-content.css">
-    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="/public/css/center-content.css">
+    <link rel="stylesheet" href="/public/css/dashboard.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -15,43 +15,39 @@
             <li><a href="/products">Products</a></li>
             <li><a href="/stock">Stock</a></li>
             <li><a href="/orders">Orders</a></li>
-            
             <li><a href="/reports">Reports</a></li>
             <li><a href="/logout">Logout</a></li>
         </ul>
     </nav>
-    <div class="container dashboard-container full-width-dash center-content">
-        <div class="dashboard-center-col">
-            <div class="metrics-section-card">
-                <div class="metrics-container">
-                    <div class="metric-item">
-                        <div class="metric-title">Total Products</div>
-                        <div class="metric-value"><%= total_products %></div>
-                    </div>
-                    <div class="metric-item">
-                        <div class="metric-title">Low Stock Items</div>
-                        <div class="metric-value"><%= low_stock_count %></div>
-                    </div>
+    <div class="dashboard-center-col">
+        <div class="metrics-section-card">
+            <div class="metrics-container">
+                <div class="metric-item">
+                    <div class="metric-title">Total Products</div>
+                    <div class="metric-value"><%= total_products %></div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-title">Low Stock Items</div>
+                    <div class="metric-value"><%= low_stock_count %></div>
                 </div>
             </div>
-            <div class="card add-product-card">
-                <div class="add-product-title">Add New Product</div>
-                <a href="/products/add" class="add-product-btn">+ Add Product</a>
-            </div>
-            <div class="card recent-section-card">
-                <h3>Recent Sales</h3>
-                <table class="data-table">
-                    <tr><th>Product</th><th>Qty</th><th>Date</th></tr>
-                    <% recent_sales.forEach(function(sale) { %>
-                        <tr>
-                            <td><%= sale.name %></td>
-                            <td><%= sale.quantity %></td>
-                            <td><%= sale.date %></td>
-                        </tr>
-                    <% }); %>
-                </table>
-            </div>
-
+        </div>
+        <div class="card add-product-card">
+            <div class="add-product-title">Add New Product</div>
+            <a href="/products/add" class="add-product-btn">+ Add Product</a>
+        </div>
+        <div class="card recent-section-card">
+            <h3>Recent Sales</h3>
+            <table class="data-table">
+                <tr><th>Product</th><th>Qty</th><th>Date</th></tr>
+                <% recent_sales.forEach(function(sale) { %>
+                    <tr>
+                        <td><%= sale.name %></td>
+                        <td><%= sale.quantity %></td>
+                        <td><%= sale.date %></td>
+                    </tr>
+                <% }); %>
+            </table>
         </div>
     </div>
 </body>

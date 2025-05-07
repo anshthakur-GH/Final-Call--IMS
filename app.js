@@ -9,7 +9,7 @@ const app = express();
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -34,9 +34,12 @@ app.use((req, res, next) => {
     res.redirect('/login');
 });
 
-// Redirect root to /dashboard
+// Redirect root to login or dashboard
 app.get('/', (req, res) => {
-    res.redirect('/dashboard');
+    if (req.session.loggedIn) {
+        return res.redirect('/dashboard');
+    }
+    res.render('login', { error: null });
 });
 app.use('/dashboard', require('./routes/dashboard'));
 app.use('/products', require('./routes/products'));

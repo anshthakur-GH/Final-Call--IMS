@@ -2,9 +2,9 @@
 <html>
 <head>
     <title>Manual Sales Entry - IMS</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/center-content.css">
-    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="/public/css/center-content.css">
+    <link rel="stylesheet" href="/public/css/common.css">
 </head>
 <body>
     <nav class="navbar colorful-navbar">
@@ -14,32 +14,31 @@
             <li><a href="/products">Products</a></li>
             <li><a href="/stock">Stock</a></li>
             <li><a href="/orders">Orders</a></li>
-            
             <li><a href="/reports">Reports</a></li>
             <li><a href="/logout">Logout</a></li>
         </ul>
     </nav>
-    <div class="container dashboard-container full-width-dash center-content">
-        <div class="center-col">
-            <div class="section-card">
-                <h2 class="section-title">Manual Sales Entry</h2>
-                <% if (error) { %>
-                    <div class="error"><%= error %></div>
-                <% } %>
-                <form method="POST" action="/orders">
-                    <label>Product:</label>
-                    <select name="product_id" required>
-                        <% products.forEach(p => { %>
-                            <option value="<%= p.id %>"><%= p.name %> (Stock: <%= p.stock %>)</option>
-                        <% }) %>
-                    </select>
-                    <label>Quantity:</label>
-                    <input type="number" name="quantity" min="1" required />
-                    <label>Customer (optional):</label>
-                    <input type="text" name="customer" />
-                    <button type="submit">Place Order</button>
-                </form>
-            </div>
+    <div class="center-col">
+        <div class="section-card">
+            <h2 class="section-title">Manual Sales Entry</h2>
+            <% if (error) { %>
+                <div class="error"><%= error %></div>
+            <% } %>
+            <form method="POST" action="/orders">
+                <label>Product:</label>
+                <select name="product_id" required>
+                    <% products.forEach(p => { %>
+                        <option value="<%= p.id %>"><%= p.name %> (Stock: <%= p.stock %>)</option>
+                    <% }) %>
+                </select>
+                <label>Quantity:</label>
+                <input type="number" name="quantity" min="1" required />
+                <label>Customer (optional):</label>
+                <input type="text" name="customer" />
+                <div style="display: flex; justify-content: center;">
+                    <button type="submit" style="width: auto; min-width: 120px; padding: 6px 18px; font-size: 1rem; margin-top: 16px;">Place Order</button>
+                </div>
+            </form>
         </div>
     </div>
 </body>

@@ -2,7 +2,9 @@
 html>
 head>
     title>Sales & Purchases - IMS/title>
-    link rel="stylesheet" href="/css/style.css">
+    link rel="stylesheet" href="/public/css/style.css">
+    link rel="stylesheet" href="/public/css/center-content.css">
+    link rel="stylesheet" href="/public/css/common.css">
     style>
         .tab { display: inline-block; margin: 0 10px; padding: 8px 16px; background: #eee; border-radius: 6px; }
         .tab.active { background: #007bff; color: #fff; }
@@ -21,75 +23,73 @@ body>
             li>a href="/logout">Logout/a>/li>
         /ul>
     /nav>
-    div class="container dashboard-container full-width-dash center-content">
-        h2>Sales & Purchases/h2>
-        div>
-            a href="/sales?tab=sales" class="tab %= tab === 'sales' ? 'active' : '' %>">Sales/a>
-            a href="/sales?tab=purchases" class="tab %= tab === 'purchases' ? 'active' : '' %>">Purchases/a>
-        /div>
-        % if (error) { %>
-            div class="error">%= error %>/div>
-        % } %>
-        % if (tab === 'sales') { %>
-            h3>Add Sale/h3>
-            form method="POST" action="/sales/add-sale">
-                label>Product:/label>
-                select name="product_id" required>
-                    % sales.forEach(s => { %>
-                        option value="%= s.product_id %>">%= s.product_name %>/option>
-                    % }) %>
-                /select>
-                label>Quantity:/label>
-                input type="number" name="quantity" min="1" required />
-                label>Customer (optional):/label>
-                input type="text" name="customer" />
-                button type="submit">Add Sale/button>
-            /form>
-            h3>Sales Orders/h3>
-            table>
-                tr>th>ID/th>th>Date/th>th>Product/th>th>Qty/th>th>Customer/th>th>Total/th>/tr>
-                % sales.forEach(s => { %>
-                    tr>
-                        td>%= s.id %>/td>
-                        td>%= s.date.toLocaleString ? s.date.toLocaleString() : s.date %>/td>
-                        td>%= s.product_name %>/td>
-                        td>%= s.quantity %>/td>
-                        td>%= s.customer %>/td>
-                        td>₹%= s.total_amount %>/td>
-                    /tr>
-                % }) %>
-            /table>
-        % } else { %>
-            h3>Add Purchase/h3>
-            form method="POST" action="/sales/add-purchase">
-                label>Product:/label>
-                select name="product_id" required>
-                    % purchases.forEach(pu => { %>
-                        option value="%= pu.product_id %>">%= pu.product_name %>/option>
-                    % }) %>
-                /select>
-                label>Quantity:/label>
-                input type="number" name="quantity" min="1" required />
-                label>Supplier (optional):/label>
-                input type="text" name="supplier" />
-                button type="submit">Add Purchase/button>
-            /form>
-            h3>Purchase Orders/h3>
-            table>
-                tr>th>ID/th>th>Date/th>th>Product/th>th>Qty/th>th>Supplier/th>th>Total/th>/tr>
-                % purchases.forEach(pu => { %>
-                    tr>
-                        td>%= pu.id %>/td>
-                        td>%= pu.date.toLocaleString ? pu.date.toLocaleString() : pu.date %>/td>
-                        td>%= pu.product_name %>/td>
-                        td>%= pu.quantity %>/td>
-                        td>%= pu.supplier %>/td>
-                        td>₹%= pu.total_amount %>/td>
-                    /tr>
-                % }) %>
-            /table>
-        % } %>
-
+    h2>Sales & Purchases/h2>
+    div>
+        a href="/sales?tab=sales" class="tab %= tab === 'sales' ? 'active' : '' %>">Sales/a>
+        a href="/sales?tab=purchases" class="tab %= tab === 'purchases' ? 'active' : '' %>">Purchases/a>
     /div>
-/body>
+    % if (error) { %>
+        div class="error">%= error %>/div>
+    % } %>
+    % if (tab === 'sales') { %>
+        h3>Add Sale/h3>
+        form method="POST" action="/sales/add-sale">
+            label>Product:/label>
+            select name="product_id" required>
+                % sales.forEach(s => { %>
+                    option value="%= s.product_id %>">%= s.product_name %>/option>
+                % }) %>
+            /select>
+            label>Quantity:/label>
+            input type="number" name="quantity" min="1" required />
+            label>Customer (optional):/label>
+            input type="text" name="customer" />
+            button type="submit">Add Sale/button>
+        /form>
+        h3>Sales Orders/h3>
+        table>
+            tr>th>ID/th>th>Date/th>th>Product/th>th>Qty/th>th>Customer/th>th>Total/th>/tr>
+            % sales.forEach(s => { %>
+                tr>
+                    td>%= s.id %>/td>
+                    td>%= s.date.toLocaleString ? s.date.toLocaleString() : s.date %>/td>
+                    td>%= s.product_name %>/td>
+                    td>%= s.quantity %>/td>
+                    td>%= s.customer %>/td>
+                    td>₹%= s.total_amount %>/td>
+                /tr>
+            % }) %>
+        /table>
+    % } else { %>
+        h3>Add Purchase/h3>
+        form method="POST" action="/sales/add-purchase">
+            label>Product:/label>
+            select name="product_id" required>
+                % purchases.forEach(pu => { %>
+                    option value="%= pu.product_id %>">%= pu.product_name %>/option>
+                % }) %>
+            /select>
+            label>Quantity:/label>
+            input type="number" name="quantity" min="1" required />
+            label>Supplier (optional):/label>
+            input type="text" name="supplier" />
+            button type="submit">Add Purchase/button>
+        /form>
+        h3>Purchase Orders/h3>
+        table>
+            tr>th>ID/th>th>Date/th>th>Product/th>th>Qty/th>th>Supplier/th>th>Total/th>/tr>
+            % purchases.forEach(pu => { %>
+                tr>
+                    td>%= pu.id %>/td>
+                    td>%= pu.date.toLocaleString ? pu.date.toLocaleString() : pu.date %>/td>
+                    td>%= pu.product_name %>/td>
+                    td>%= pu.quantity %>/td>
+                    td>%= pu.supplier %>/td>
+                    td>₹%= pu.total_amount %>/td>
+                /tr>
+            % }) %>
+        /table>
+    % } %>
+
+</body>
 /html>
